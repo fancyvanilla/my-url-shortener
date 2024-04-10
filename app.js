@@ -3,7 +3,7 @@ const mongoose=require('mongoose')
 const dotenv=require('dotenv')
 dotenv.config();
 
-const Url= require('../models/urlModel');
+const Url= require('./models/urlModel');
 const app=express();
 
 
