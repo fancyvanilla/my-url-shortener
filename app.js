@@ -54,7 +54,6 @@ app.get('/',async (req,res)=>{
 
 });
 
-
 app.get('/:shortUrl',async (req,res)=>{
    try{
       const shortUrl=req.params.shortUrl;

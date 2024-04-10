@@ -10,11 +10,13 @@
 <body>
   <div class="container">
     <h1>URL Shortener</h1>
+    <p>Shorty is a free tool that shortens your long links and saves them for you.</p>
   
     <form action="/shorten" method="post">
-      <label for="fullUrl">Enter URL:</label>
-      <input type="text" name="fullUrl" id="fullUrl" required>
+      <div class="group-input">
+      <input class="user-input" type="text" name="fullUrl" id="fullUrl" required placeholder="Enter link here">
       <button type="submit">Shorten</button>
+    </div>
     </form>
 
     <table>
