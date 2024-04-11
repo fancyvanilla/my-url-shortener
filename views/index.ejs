@@ -11,35 +11,34 @@
   <div class="container">
     <h1>URL Shortener</h1>
     <p>Shorty is a free tool that shortens your long links and saves them for you.</p>
-  
+    <div class="sub-container">
     <form action="/shorten" method="post">
       <div class="group-input">
       <input class="user-input" type="text" name="fullUrl" id="fullUrl" required placeholder="Enter link here">
       <button type="submit">Shorten</button>
     </div>
     </form>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Full URL</th>
-          <th>Short URL</th>
-          <th>Clicks</th>
-        </tr>
-      </thead>
-      <tbody>
-     
-         <% urls.forEach(url => { %>
-          <tr>
-            <td><a href="<%= url.fullUrl %>" target="_blank"><%= url.fullUrl %></a></td>
-
-            <td><a href="<%= url.shortUrl %>" target="_blank"><%= url.shortUrl %></a></td>
-            <td><%= url.clicks %></td>
-          </tr>
-        <% }); %>
-
-      </tbody>
-    </table>
+    <div class="error"><%= error %></div>
+    <% if (url) {%> 
+    <div class="short-link-container">
+      <div class="full-url"><%= url.fullUrl %></div>
+        <a id="copy" href="<%= url.shortUrl %>" target="_blank" ><%= url.shortUrl%></a>
+    </div>
+    <% } %>
+    <button  onclick="copy()" >Copy</button>
   </div>
+</div>
+<script>
+  async function copy() {
+  const copy = document.getElementById('copy');
+  const baseUrl = 'http://localhost:7000/';
+  try {
+    await navigator.clipboard.writeText(baseUrl+copy.textContent);
+    console.log('Text copied to clipboard');
+  } catch (err) {
+    console.error('Failed to copy text: ', err);
+  }
+}
+</script>
 </body>
 </html>
