@@ -1,6 +1,5 @@
 const mongoose=require('mongoose');
 const shortId = require('shortid');
-console.log(shortId.generate());  
 
 const urlSchema= new mongoose.Schema({
     fullUrl:{

@@ -1,6 +1,7 @@
 const express=require('express')
 const mongoose=require('mongoose')
 const dotenv=require('dotenv')
+const axios=require('axios')
 dotenv.config();
 
 const Url= require('./models/urlModel');
@@ -31,22 +32,30 @@ app.use(express.static('public'));
 
 app.post('/shorten',async (req,res)=>{
 try{
-
-   const url=new Url({fullUrl:req.body.fullUrl});
+   try{
+   let fullUrl= req.body.fullUrl 
+   await axios.get(fullUrl)
+   const url=new Url({fullUrl:fullUrl});
    await url.save();
-   res.redirect('/');
+   res.render("index",{
+      url:url,
+      error:""
+   });
 }
 catch(err){
-   res.status(500).send('Internal URL');
+   res.render("index",{url:null,error:"Invalid URL"});
 }
-
+}
+catch(err){
+   res.status(500).send('Internal error');
+}
 });
 
 
 app.get('/',async (req,res)=>{
    try{
       const urls=await Url.find();
-      res.render('index',{urls})
+      res.render('index',{url:null,error:""})
    }
    catch(err){
       res.status(500).send('Internal server error');
@@ -68,8 +77,6 @@ app.get('/:shortUrl',async (req,res)=>{
       res.status(500).send('Url not found');
    }
 })
-
-
 
 
 
