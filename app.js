@@ -53,14 +53,7 @@ catch(err){
 
 
 app.get('/',async (req,res)=>{
-   try{
-      const urls=await Url.find();
       res.render('index',{url:null,error:""})
-   }
-   catch(err){
-      res.status(500).send('Internal server error');
-   }
-
 });
 
 app.get('/:shortUrl',async (req,res)=>{
@@ -77,8 +70,6 @@ app.get('/:shortUrl',async (req,res)=>{
       res.status(500).send('Url not found');
    }
 })
-
-
 
 
 app.listen(process.env.PORT ,()=>console.log('listening on port 7000'))
